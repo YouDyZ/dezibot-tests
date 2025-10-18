@@ -26,6 +26,7 @@ uint16_t getAverage(color color) {
 }
 
 void init() {
+    dezibot.begin();
     //a. GPIO16, GPIO17, GPIO18 als Ausgang, Low geschaltet.
     pinMode(16, OUTPUT);
     pinMode(17, OUTPUT);

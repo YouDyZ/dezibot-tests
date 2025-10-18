@@ -11,18 +11,18 @@ Dezibot dezibot = Dezibot();
 
 uint16_t getAverage(color color) {
   uint32_t sum = 0;
-    for (uint i = 0; i < 10; i++) {
-      uint16_t scan =
-        //Serial.print(scan);
-        Serial.print(" ");
-      sum = (uint32_t)sum + dezibot.colorDetection.getColorValue(color);
-      ;
-      Serial.print(sum);
-      delay(100);
-    }
-    Serial.print(color);
-    Serial.print(" Sensor 10er average: ");
-    return (uint16_t)((sum + 5) / 10);
+  for (uint i = 0; i < 10; i++) {
+    uint16_t scan =
+      //Serial.print(scan);
+      Serial.print(" ");
+    sum = (uint32_t)sum + dezibot.colorDetection.getColorValue(color);
+    ;
+    Serial.print(sum);
+    delay(100);
+  }
+  Serial.print(color);
+  Serial.print(" Sensor 10er average: ");
+  return (uint16_t)((sum + 5) / 10);
 }
 
 void testIMU() {
@@ -57,21 +57,20 @@ void testIMU() {
 }
 
 void testMotorR() {
-    Serial.println("--- TEST MOTOR RIGHT ---");
-    dezibot.motion.rotateAntiClockwise();
-    testIMU();
-    dezibot.motion.stop();
+  Serial.println("--- TEST MOTOR RIGHT ---");
+  dezibot.motion.rotateAntiClockwise();
+  testIMU();
+  dezibot.motion.stop();
 }
 
 void testMotorL() {
-    Serial.println("--- TEST MOTOR LEFT ---");
-    dezibot.motion.rotateClockwise();
-    testIMU();
-    dezibot.motion.stop();
+  Serial.println("--- TEST MOTOR LEFT ---");
+  dezibot.motion.rotateClockwise();
+  testIMU();
+  dezibot.motion.stop();
 }
 
 void init() {
-    dezibot.begin();
     //a. GPIO16, GPIO17, GPIO18 als Ausgang, Low geschaltet.
     pinMode(16, OUTPUT);
     pinMode(17, OUTPUT);
