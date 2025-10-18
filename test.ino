@@ -71,6 +71,7 @@ void testMotorL() {
 }
 
 void init() {
+    dezibot.begin();
     //a. GPIO16, GPIO17, GPIO18 als Ausgang, Low geschaltet.
     pinMode(16, OUTPUT);
     pinMode(17, OUTPUT);
@@ -85,11 +86,15 @@ void init() {
 void setup() {
     Serial.begin(115200);
     init();
-    delay(10000);
+    dezibot.display.print("Test start in 20");
+    delay(20000);
     testIMU();
     testMotorR();
     testMotorL();
+    dezibot.display.clear();
+    Serial.end();
 }
 
 void loop() {
+
 }
