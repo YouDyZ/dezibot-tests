@@ -90,7 +90,6 @@ void setup() {
     testIMU();
     testMotorR();
     testMotorL();
-    Serial.end();
 }
 
 void loop() {

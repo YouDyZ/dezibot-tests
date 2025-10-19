@@ -121,7 +121,6 @@ void setup() {
     delay(2000);
     testBlue();
     delay(2000);
-    Serial.end();
 }
 
 void loop() {
