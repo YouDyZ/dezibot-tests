@@ -110,7 +110,7 @@ void init() {
 void setup() {
     Serial.begin(115200);
     init();
-    delay(30000);
+    delay(1000);
     testOff();
     delay(2000);
     testWhite();
