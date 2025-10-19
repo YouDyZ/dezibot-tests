@@ -86,7 +86,7 @@ void init() {
 void setup() {
     Serial.begin(115200);
     init();
-    delay(10000);
+    delay(500);
     testIMU();
     testMotorR();
     testMotorL();
