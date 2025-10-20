@@ -9,24 +9,51 @@
 
 Dezibot dezibot = Dezibot();
 
-uint16_t getAverage(color color) {
-  uint32_t sum = 0;
-    for (uint i = 0; i < 10; i++) {
-      uint16_t scan =
-        //Serial.print(scan);
-        Serial.print(" ");
-      sum = (uint32_t)sum + dezibot.colorDetection.getColorValue(color);
-      ;
-      Serial.print(sum);
-      delay(100);
+bool testPassed = true;
+
+bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
+    // messwert kleiner gleich soll
+    if (type == "max") {
+        Serial.print(mess);
+        Serial.print(" <= ");
+        Serial.print(soll);
+        Serial.print("? --> ");
+        if(mess > soll) {
+            testPassed = false;
+        }
+
+        return mess <= soll;
+    } else if (type == "min") {
+        Serial.print(mess);
+        Serial.print(" >= ");
+        Serial.print(soll);
+        Serial.print("? --> ");
+        if(mess < soll) {
+            testPassed = false;
+        }
+        return mess >= soll;
+    } else if (type == "equal") {
+        Serial.print(mess);
+        Serial.print(" == ");
+        Serial.print(soll);
+        Serial.print("? --> ");
+        if(mess != soll) {
+            testPassed = false;
+        }
+        return mess == soll;
+    } else {
+        Serial.println("Fehler: Ungueltiger Vergleichstyp");
+        return false;
     }
-    Serial.print(color);
-    Serial.print(" Sensor 10er average: ");
-    return (uint16_t)((sum + 5) / 10);
 }
 
 void testIMU() {
   Serial.println("--- TEST IMU ---");
+  readIMU(2000, 2000, 50000, "max");
+}
+
+void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
+  Serial.println("average absolute acceleration over 10 samples:");
   uint32_t sumx = 0;
   uint32_t sumy = 0;
   uint32_t sumz = 0;
@@ -43,30 +70,36 @@ void testIMU() {
   //sumz = ((sumz+5)/10);
   Serial.print("x: ");
   Serial.print((sumx + 5) / 10);
-  Serial.print("/");
-  Serial.print(((sumx + 5) / 10) / 16);
-  Serial.print("g, y: ");
+  Serial.print(", y: ");
   Serial.print((sumy + 5) / 10);
-  Serial.print("/");
-  Serial.print(((sumy + 5) / 10) / 16);
-  Serial.print("g, z: ");
-  Serial.print((sumz + 5) / 10);
-  Serial.print("/");
-  Serial.print(((sumz + 5) / 10) / 16);
-  Serial.println("g");
+  Serial.print(", z: ");
+  Serial.println((sumz + 5) / 10);
+
+  Serial.print("ResultsX: ");
+  Serial.println(
+      compareTestValue((uint16_t)((sumx + 5) / 10), sollX, type)? "true" : "false"
+  );
+  Serial.print("ResultsY: ");
+  Serial.println(
+      compareTestValue((uint16_t)((sumy + 5) / 10), sollY, type)? "true" : "false"
+  );
+  Serial.print("ResultsZ: ");
+  Serial.println(
+      compareTestValue((uint16_t)((sumz + 5) / 10), sollZ, type)? "true" : "false"
+  );
 }
 
 void testMotorR() {
     Serial.println("--- TEST MOTOR RIGHT ---");
     dezibot.motion.rotateAntiClockwise();
-    testIMU();
+    readIMU(10000,10000,0, "min");
     dezibot.motion.stop();
 }
 
 void testMotorL() {
     Serial.println("--- TEST MOTOR LEFT ---");
     dezibot.motion.rotateClockwise();
-    testIMU();
+    readIMU(10000,10000,0, "min");
     dezibot.motion.stop();
 }
 
@@ -86,10 +119,14 @@ void init() {
 void setup() {
     Serial.begin(115200);
     init();
-    delay(500);
+    delay(10000);
     testIMU();
+    delay(2000);
     testMotorR();
+    delay(2000);
     testMotorL();
+    Serial.print("Test: ");
+    Serial.println(testPassed ? "PASSED" : "FAILED");
 }
 
 void loop() {

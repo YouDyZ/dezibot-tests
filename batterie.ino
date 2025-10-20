@@ -9,6 +9,61 @@
 
 Dezibot dezibot = Dezibot();
 
+bool testPassed = true;
+
+bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
+    // messwert kleiner gleich soll
+    if (type == "max") {
+        Serial.print(mess);
+        Serial.print(" <= ");
+        Serial.print(soll);
+        Serial.print("? --> ");
+        if(mess > soll) {
+            testPassed = false;
+        }
+
+        return mess <= soll;
+    } else if (type == "min") {
+        Serial.print(mess);
+        Serial.print(" >= ");
+        Serial.print(soll);
+        Serial.print("? --> ");
+        if(mess < soll) {
+            testPassed = false;
+        }
+        return mess >= soll;
+    } else if (type == "equal") {
+        Serial.print(mess);
+        Serial.print(" == ");
+        Serial.print(soll);
+        Serial.print("? --> ");
+        if(mess != soll) {
+            testPassed = false;
+        }
+        return mess == soll;
+    } else {
+        Serial.println("Fehler: Ungueltiger Vergleichstyp");
+        return false;
+    }
+}
+// True High, False Low
+bool getBatChgStat() {
+  if (digitalRead(BAT_CHG_STAT) == HIGH) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+float readBatteryVoltage() {
+  digitalWrite(BAT_ADC_EN, HIGH);
+  delay(10);
+  int adcValue = analogRead(BAT_ADC);
+  digitalWrite(BAT_ADC_EN, LOW);
+  float voltage = (adcValue / 4095.0) * 2 * 3.3;  // Assuming a 12-bit ADC and a voltage divider
+  return voltage;
+}
+
 void init() {
     dezibot.begin();
     //a. GPIO16, GPIO17, GPIO18 als Ausgang, Low geschaltet.
@@ -26,6 +81,18 @@ void setup() {
     Serial.begin(115200);
     init();
     delay(10000);
+
+    Serial.print("Battery Charge Status: ");
+    Serial.println(
+        compareTestValue(getBatChgStat() ? 1 : 0, 0, "equal") ? "true" : "false"
+    );
+
+    float batteryVoltage = readBatteryVoltage();
+    Serial.print("Battery Voltage: ");
+    Serial.println(batteryVoltage);
+
+    Serial.print("Test: ");
+    Serial.println(testPassed ? "PASSED" : "FAILED");
 }
 
 void loop() {
