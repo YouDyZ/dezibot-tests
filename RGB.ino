@@ -64,7 +64,7 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
 }
 
 void testOff() {
-    dezibot.multiColorLight.turnOffLed(BOTTOM);
+    dezibot.multiColorLight.turnOffLed(ALL);
     Serial.println("--- OFF --- ");  // Turn off all LEDs
     delay(1000);
     Serial.println("RED: ");
@@ -82,7 +82,7 @@ void testOff() {
 }
 
 void testWhite() {
-    dezibot.multiColorLight.setLed(BOTTOM, WHITE);
+    dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(100,100,100));
     Serial.println("--- WHITE --- "); 
     delay(1000);
     Serial.println("RED: ");
@@ -97,11 +97,11 @@ void testWhite() {
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 150, "min")? "true" : "false"
     );
-    dezibot.multiColorLight.turnOffLed(BOTTOM);
+    dezibot.multiColorLight.turnOffLed(ALL);
 }
 
 void testRed() {
-    dezibot.multiColorLight.setLed(BOTTOM, RED); 
+    dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(100,0,0)); 
     Serial.println("--- RED --- ");
     delay(1000);
     // Serial.print("Red Sensor 10er average: ");
@@ -117,11 +117,11 @@ void testRed() {
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
     );
-    dezibot.multiColorLight.turnOffLed(BOTTOM);
+    dezibot.multiColorLight.turnOffLed(ALL);
 };
 
 void testGreen() {
-    dezibot.multiColorLight.setLed(BOTTOM, GREEN);
+    dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,100,0));
     Serial.println("--- GREEN --- ");
     delay(1000);
     // Serial.print("Red Sensor 10er average: ");
@@ -137,11 +137,11 @@ void testGreen() {
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
     );
-    dezibot.multiColorLight.turnOffLed(BOTTOM);
+    dezibot.multiColorLight.turnOffLed(ALL);
 };
 
 void testBlue() {
-    dezibot.multiColorLight.setLed(BOTTOM, BLUE);
+    dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,0,100));
     Serial.println("--- BLUE --- ");
     delay(1000);
     Serial.println("RED: ");
@@ -156,11 +156,10 @@ void testBlue() {
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
     );
-    dezibot.multiColorLight.turnOffLed(BOTTOM);
+    dezibot.multiColorLight.turnOffLed(ALL);
 }
 
 void init() {
-    dezibot.begin();
     //a. GPIO16, GPIO17, GPIO18 als Ausgang, Low geschaltet.
     pinMode(16, OUTPUT);
     pinMode(17, OUTPUT);
@@ -173,6 +172,7 @@ void init() {
 }
 
 void setup() {
+    dezibot.begin();
     Serial.begin(115200);
     Serial.println("Starting RGB LED Test");
     init();
