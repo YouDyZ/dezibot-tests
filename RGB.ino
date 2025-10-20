@@ -25,7 +25,7 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
         Serial.print(mess);
         Serial.print(" <= ");
         Serial.print(soll);
-        Serial.print("? --> "));
+        Serial.print("? --> ");
         if(mess > soll) {
             testPassed = false;
         }
