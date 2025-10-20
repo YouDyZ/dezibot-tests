@@ -12,7 +12,7 @@ bool testPassed = true;
 
 uint16_t getAverage(color color) {
   uint32_t sum = 0;
-  Serial.print("Sensor 10er average: ");
+  Serial.print("Scan Data (Value-Sum) ");
   for (uint i = 0; i < 10; i++) {
     uint16_t value = dezibot.colorDetection.getColorValue(color);
     Serial.print(value);
@@ -22,7 +22,7 @@ uint16_t getAverage(color color) {
     Serial.print(" ");
     delay(100);
   }
-  Serial.print("Sensor 10er average: ");
+  Serial.print("\n Sensor 10er average: ");
   Serial.println((uint16_t)((sum + 5) / 10));
   return (uint16_t)((sum + 5) / 10);
 }
