@@ -12,10 +12,18 @@ bool testPassed = true;
 
 uint16_t getAverage(color color) {
   uint32_t sum = 0;
+  Serial.print("Sensor 10er average: ");
   for (uint i = 0; i < 10; i++) {
-    sum = (uint32_t)sum + dezibot.colorDetection.getColorValue(color);
+    uint16_t value = dezibot.colorDetection.getColorValue(color);
+    Serial.print(value);
+    Serial.print("-");
+    sum = (uint32_t)sum + value;
+    Serial.print(sum);
+    Serial.print(" ");
     delay(100);
-    }
+  }
+  Serial.print("Sensor 10er average: ");
+  Serial.println((uint16_t)((sum + 5) / 10));
   return (uint16_t)((sum + 5) / 10);
 }
 
@@ -57,17 +65,17 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
 
 void testOff() {
     dezibot.multiColorLight.turnOffLed(BOTTOM);
-    Serial.println("--- WHITE --- ");  // Turn off all LEDs
+    Serial.println("--- OFF --- ");  // Turn off all LEDs
     delay(1000);
-    Serial.print("RED: ");
+    Serial.println("RED: ");
     Serial.println(
         compareTestValue(getAverage(VEML_RED), 100, "max")? "true" : "false"
     );
-    Serial.print("GREEN: ");
+    Serial.println("GREEN: ");
     Serial.println(
         compareTestValue(getAverage(VEML_GREEN), 100, "max")? "true" : "false"  
     );
-    Serial.print("BLUE: ");
+    Serial.println("BLUE: ");
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 100, "max")? "true" : "false"
     );
@@ -77,15 +85,15 @@ void testWhite() {
     dezibot.multiColorLight.setLed(BOTTOM, WHITE);
     Serial.println("--- WHITE --- "); 
     delay(1000);
-    Serial.print("RED: ");
+    Serial.println("RED: ");
     Serial.println(
         compareTestValue(getAverage(VEML_RED), 150, "min")? "true" : "false"
     );
-    Serial.print("GREEN: ");
+    Serial.println("GREEN: ");
     Serial.println(
         compareTestValue(getAverage(VEML_GREEN), 150, "min")? "true" : "false"
     );
-    Serial.print("BLUE: ");
+    Serial.println("BLUE: ");
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 150, "min")? "true" : "false"
     );
@@ -97,15 +105,15 @@ void testRed() {
     Serial.println("--- RED --- ");
     delay(1000);
     // Serial.print("Red Sensor 10er average: ");
-    Serial.print("RED: ");
+    Serial.println("RED: ");
     Serial.println(
         compareTestValue(getAverage(VEML_RED), 150, "min")? "true" : "false"
     );
-    Serial.print("GREEN: ");
+    Serial.println("GREEN: ");
     Serial.println(
         compareTestValue(getAverage(VEML_GREEN), 0, "min")? "true" : "false"
     );
-    Serial.print("BLUE: ");
+    Serial.println("BLUE: ");
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
     );
@@ -117,15 +125,15 @@ void testGreen() {
     Serial.println("--- GREEN --- ");
     delay(1000);
     // Serial.print("Red Sensor 10er average: ");
-    Serial.print("RED: ");
+    Serial.println("RED: ");
     Serial.println(
         compareTestValue(getAverage(VEML_RED), 0, "min")? "true" : "false"
     );
-    Serial.print("GREEN: ");
+    Serial.println("GREEN: ");
     Serial.println(
         compareTestValue(getAverage(VEML_GREEN), 200, "min")? "true" : "false"
     );
-    Serial.print("BLUE: ");
+    Serial.println("BLUE: ");
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
     );
@@ -136,15 +144,15 @@ void testBlue() {
     dezibot.multiColorLight.setLed(BOTTOM, BLUE);
     Serial.println("--- BLUE --- ");
     delay(1000);
-    Serial.print("RED: ");
+    Serial.println("RED: ");
     Serial.println(
         compareTestValue(getAverage(VEML_RED), 150, "min")? "true" : "false"
     );
-    Serial.print("GREEN: ");
+    Serial.println("GREEN: ");
     Serial.println(
         compareTestValue(getAverage(VEML_GREEN), 0, "min")? "true" : "false"
     );
-    Serial.print("BLUE: ");
+    Serial.println("BLUE: ");
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
     );
@@ -166,6 +174,7 @@ void init() {
 
 void setup() {
     Serial.begin(115200);
+    Serial.println("Starting RGB LED Test");
     init();
     delay(1000);
     testOff();
