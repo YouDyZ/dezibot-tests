@@ -46,7 +46,7 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
         return false;
     }
 }
-
+// all off
 void testIR1() {
     Serial.println("--- IR Transistor 1 ---");
     uint32_t frontIR = dezibot.lightDetection.getValue(IR_FRONT);
@@ -67,7 +67,7 @@ void testIR1() {
     Serial.println(
         compareTestValue(rightIR, 100, "max")? "true" : "false");
 }
-
+// front active
 void testIR2() {
     Serial.println("--- IR Transistor 2 ---");
     digitalWrite(16, HIGH);
@@ -81,17 +81,17 @@ void testIR2() {
         compareTestValue(frontIR, 2000, "min")? "true" : "false");
     Serial.print("left: ");
     Serial.println(
-        compareTestValue(leftIR, 200, "max")? "true" : "false");
+        compareTestValue(leftIR, 250, "max")? "true" : "false");
     Serial.print("back: ");
     Serial.println(
-        compareTestValue(backIR, 200, "max")? "true" : "false");
+        compareTestValue(backIR, 250, "max")? "true" : "false");
     Serial.print("right: ");
     Serial.println(
-        compareTestValue(rightIR, 200, "max")? "true" : "false");
+        compareTestValue(rightIR, 250, "max")? "true" : "false");
     digitalWrite(16, LOW);
     delay(100);
 }
-
+// front and right active
 void testIR3() {
     Serial.println("--- IR Transistor 3 ---");
     digitalWrite(17, HIGH);
@@ -105,10 +105,10 @@ void testIR3() {
         compareTestValue(frontIR, 2000, "min")? "true" : "false");
     Serial.print("left: ");
     Serial.println(
-        compareTestValue(leftIR, 200, "max")? "true" : "false");
+        compareTestValue(leftIR, 250, "max")? "true" : "false");
     Serial.print("back: ");
     Serial.println(
-        compareTestValue(backIR, 200, "max")? "true" : "false");
+        compareTestValue(backIR, 250, "max")? "true" : "false");
     Serial.print("right: ");
     Serial.println(
         compareTestValue(rightIR, 2000, "min")? "true" : "false");
@@ -116,7 +116,7 @@ void testIR3() {
     delay(100);
 
 }
-
+// left and back active
 void testIR4() {
     Serial.println("--- IR Transistor 4 ---");
     digitalWrite(18, HIGH);
@@ -127,7 +127,7 @@ void testIR4() {
     uint32_t rightIR = dezibot.lightDetection.getValue(IR_RIGHT);
     Serial.print("front: ");
     Serial.println(
-        compareTestValue(frontIR, 200, "max")? "true" : "false");
+        compareTestValue(frontIR, 250, "max")? "true" : "false");
     Serial.print("left: ");
     Serial.println(
         compareTestValue(leftIR, 2000, "min")? "true" : "false");
@@ -136,7 +136,7 @@ void testIR4() {
         compareTestValue(backIR, 2000, "min")? "true" : "false");
     Serial.print("right: ");
     Serial.println(
-        compareTestValue(rightIR, 200, "max")? "true" : "false");
+        compareTestValue(rightIR, 250, "max")? "true" : "false");
     digitalWrite(18, LOW);
     delay(100);
 }
