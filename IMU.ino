@@ -92,14 +92,14 @@ void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
 void testMotorR() {
     Serial.println("--- TEST MOTOR RIGHT ---");
     dezibot.motion.rotateAntiClockwise();
-    readIMU(100,1000,0, "min");
+    readIMU(100,100,0, "min");
     dezibot.motion.stop();
 }
 
 void testMotorL() {
     Serial.println("--- TEST MOTOR LEFT ---");
     dezibot.motion.rotateClockwise();
-    readIMU(100,1000,0, "min");
+    readIMU(100,100,0, "min");
     dezibot.motion.stop();
 }
 
