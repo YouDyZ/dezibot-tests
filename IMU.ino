@@ -127,7 +127,6 @@ void setup() {
     testMotorL();
     Serial.print("Test: ");
     Serial.println(testPassed ? "PASSED" : "FAILED");
-    Serial.print(27, BYTE)
 }
 
 void loop() {
