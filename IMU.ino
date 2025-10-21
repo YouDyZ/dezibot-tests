@@ -49,7 +49,7 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
 
 void testIMU() {
   Serial.println("--- TEST IMU ---");
-  readIMU(2000, 2000, 50000, "max");
+  readIMU(50, 50, 5000, "max");
 }
 
 void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
@@ -92,14 +92,14 @@ void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
 void testMotorR() {
     Serial.println("--- TEST MOTOR RIGHT ---");
     dezibot.motion.rotateAntiClockwise();
-    readIMU(10000,10000,0, "min");
+    readIMU(100,1000,0, "min");
     dezibot.motion.stop();
 }
 
 void testMotorL() {
     Serial.println("--- TEST MOTOR LEFT ---");
     dezibot.motion.rotateClockwise();
-    readIMU(10000,10000,0, "min");
+    readIMU(100,1000,0, "min");
     dezibot.motion.stop();
 }
 
