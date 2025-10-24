@@ -79,6 +79,10 @@ void testOff() {
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 1000, "max")? "true" : "false"
     );
+    Serial.println("WHITE: ");
+    Serial.println(
+        compareTestValue(getAverage(VEML_WHITE), 1000, "max")? "true" : "false"
+    );
 }
 
 void testWhite() {
@@ -96,6 +100,10 @@ void testWhite() {
     Serial.println("BLUE: ");
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 5000, "min")? "true" : "false"
+    );
+    Serial.println("WHITE: ");
+    Serial.println(
+        compareTestValue(getAverage(VEML_WHITE), 5000, "min")? "true" : "false"
     );
     dezibot.multiColorLight.turnOffLed(ALL);
 }
@@ -116,6 +124,10 @@ void testRed() {
     Serial.println("BLUE: ");
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
+    );
+    Serial.println("WHITE: ");
+    Serial.println(
+        compareTestValue(getAverage(VEML_WHITE), 0, "min")? "true" : "false"
     );
     dezibot.multiColorLight.turnOffLed(ALL);
 };
