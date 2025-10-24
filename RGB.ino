@@ -12,14 +12,14 @@ bool testPassed = true;
 
 uint16_t getAverage(color color) {
   uint32_t sum = 0;
-  Serial.print("Scan Data (Value-Sum) ");
+  // Serial.print("Scan Data (Value-Sum) ");
   for (uint i = 0; i < 10; i++) {
     uint16_t value = dezibot.colorDetection.getColorValue(color);
-    Serial.print(value);
-    Serial.print("-");
+    // Serial.print(value);
+    // Serial.print("-");
     sum = (uint32_t)sum + value;
-    Serial.print(sum);
-    Serial.print(" ");
+    // Serial.print(sum);
+    // Serial.print(" ");
     delay(100);
   }
   Serial.print("\n Sensor 10er average: ");
@@ -149,6 +149,10 @@ void testGreen() {
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
     );
+    Serial.println("WHITE: ");
+    Serial.println(
+        compareTestValue(getAverage(VEML_WHITE), 0, "min")? "true" : "false"
+    );
     dezibot.multiColorLight.turnOffLed(ALL);
 };
 
@@ -167,6 +171,10 @@ void testBlue() {
     Serial.println("BLUE: ");
     Serial.println(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
+    );
+    Serial.println("WHITE: ");
+    Serial.println(
+        compareTestValue(getAverage(VEML_WHITE), 0, "min")? "true" : "false"
     );
     dezibot.multiColorLight.turnOffLed(ALL);
 }
