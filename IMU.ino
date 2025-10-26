@@ -114,20 +114,20 @@ void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
 
 void testIMU() {
   Serial.println("--- TEST IMU ---");
-  readIMU(100, 50, -1, "max");
+  readIMU(25, 25, 25, "max");
 }
 
 void testMotorR() {
     Serial.println("--- TEST MOTOR RIGHT ---");
     dezibot.motion.rotateAntiClockwise();
-    readIMU(200,0,0, "min");
+    readIMU(200,50,200, "min");
     dezibot.motion.stop();
 }
 
 void testMotorL() {
     Serial.println("--- TEST MOTOR LEFT ---");
     dezibot.motion.rotateClockwise();
-    readIMU(200,0,0, "min");
+    readIMU(200,50,200, "min");
     dezibot.motion.stop();
 }
 
