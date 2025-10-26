@@ -50,7 +50,7 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
 
 
 void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
-  Serial.println("min and max values for 10 scans:");
+  Serial.println("max-min values for 10 scans:");
   int32_t minx = 0;
   int32_t maxx = 0;
   int32_t miny = 0;
