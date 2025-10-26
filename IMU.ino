@@ -92,11 +92,11 @@ void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
   //sumy = ((sumy+5)/10);
   //sumz = ((sumz+5)/10);
   Serial.print("x: ");
-  Serial.print((sumx + 5) / 10);
+  Serial.print((maxx-minx) / 10);
   Serial.print(", y: ");
-  Serial.print((sumy + 5) / 10);
+  Serial.print((maxy-miny) / 10);
   Serial.print(", z: ");
-  Serial.println((sumz + 5) / 10);
+  Serial.println((maxz-minz) / 10);
 
   Serial.print("ResultsX: ");
   Serial.println(
