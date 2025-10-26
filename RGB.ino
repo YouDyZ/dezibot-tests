@@ -68,19 +68,19 @@ void testOff() {
     Serial.println("--- OFF --- ");  // Turn off all LEDs
     delay(1000);
     Serial.println("RED: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_RED), 1000, "max")? "true" : "false"
     );
     Serial.println("GREEN: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_GREEN), 1000, "max")? "true" : "false"
     );
     Serial.println("BLUE: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_BLUE), 1000, "max")? "true" : "false"
     );
     Serial.println("WHITE: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_WHITE), 1000, "max")? "true" : "false"
     );
 }
@@ -90,19 +90,19 @@ void testWhite() {
     Serial.println("--- WHITE --- "); 
     delay(1000);
     Serial.println("RED: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_RED), 5000, "min")? "true" : "false"
     );
     Serial.println("GREEN: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_GREEN), 5000, "min")? "true" : "false"
     );
     Serial.println("BLUE: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_BLUE), 5000, "min")? "true" : "false"
     );
     Serial.println("WHITE: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_WHITE), 5000, "min")? "true" : "false"
     );
     dezibot.multiColorLight.turnOffLed(ALL);
@@ -114,19 +114,19 @@ void testRed() {
     delay(1000);
     // Serial.print("Red Sensor 10er average: ");
     Serial.println("RED: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_RED), 5000, "min")? "true" : "false"
     );
     Serial.println("GREEN: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_GREEN), 0, "min")? "true" : "false"
     );
     Serial.println("BLUE: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
     );
     Serial.println("WHITE: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_WHITE), 0, "min")? "true" : "false"
     );
     dezibot.multiColorLight.turnOffLed(ALL);
@@ -138,19 +138,19 @@ void testGreen() {
     delay(1000);
     // Serial.print("Red Sensor 10er average: ");
     Serial.println("RED: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_RED), 0, "min")? "true" : "false"
     );
     Serial.println("GREEN: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_GREEN), 5000, "min")? "true" : "false"
     );
     Serial.println("BLUE: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_BLUE), 0, "min")? "true" : "false"
     );
     Serial.println("WHITE: ");
-    Serial.println(
+    Serial.print(
         compareTestValue(getAverage(VEML_WHITE), 0, "min")? "true" : "false"
     );
     dezibot.multiColorLight.turnOffLed(ALL);
