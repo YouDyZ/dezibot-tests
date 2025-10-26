@@ -49,7 +49,7 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
 
 void testIMU() {
   Serial.println("--- TEST IMU ---");
-  readIMU(50, 50, 5000, "max");
+  readIMU(50, 50, 0, "max");
 }
 
 void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
@@ -85,7 +85,7 @@ void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
   );
   Serial.print("ResultsZ: ");
   Serial.println(
-      compareTestValue((uint16_t)((sumz + 5) / 10), sollZ, type)? "true" : "false"
+      compareTestValue((uint16_t)((sumz + 5) / 10), sollZ, "min")? "true" : "false"
   );
 }
 
