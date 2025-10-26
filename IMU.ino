@@ -131,11 +131,14 @@ void setup() {
     delay(10000);
 
     // Run Tests up to 3 Times, it need to pas once
-    for (uint16_t i = 0; i < 3 && !testPassed; i++) {
-        Serial.print("Test Run ");
-        Serial.println(i+1);
+    uint8_t attempts = 0;
+    do {
+        attempts++;
+        Serial.print("Attempt: ");
+        Serial.println(attempts);
         runTests();
-    }
+    } while (!testPassed && attempts < 3);
+    
     Serial.print("Test: ");
     Serial.println(testPassed ? "PASSED" : "FAILED");
 }
