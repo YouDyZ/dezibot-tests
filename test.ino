@@ -67,34 +67,35 @@ void runTestsRGB() {
         Serial.print(" ");
         delay(100);
     }
+    Serial.println();
 }
 
 void testIRSensor() {
   Serial.println("IR Sensor Front:");
   for (int i = 0; i < 10; i++) {
 
-    Serial.println(dezibot.lightDetection.getValue(IR_FRONT));
+    Serial.print(dezibot.lightDetection.getValue(IR_FRONT));
     Serial.print(" ");
     delay(1000);
   }
   Serial.println();
   Serial.println("IR Sensor Left:");
   for (int i = 0; i < 10; i++) {
-    Serial.println(dezibot.lightDetection.getValue(IR_LEFT));
+    Serial.print(dezibot.lightDetection.getValue(IR_LEFT));
     Serial.print(" ");
     delay(1000);
   }
   Serial.println();
   Serial.println("IR Sensor Back:");
   for (int i = 0; i < 10; i++) {
-    Serial.println(dezibot.lightDetection.getValue(IR_BACK));
+    Serial.print(dezibot.lightDetection.getValue(IR_BACK));
     Serial.print(" ");
     delay(1000);
   }
   Serial.println();
   Serial.println("IR Sensor Right:");
   for (int i = 0; i < 10; i++) {
-    Serial.println(dezibot.lightDetection.getValue(IR_RIGHT));
+    Serial.print(dezibot.lightDetection.getValue(IR_RIGHT));
     Serial.print(" ");
     delay(1000);
   }
