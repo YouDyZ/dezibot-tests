@@ -179,7 +179,7 @@ void setup() {
 
   dezibot.multiColorLight.turnOffLed(ALL);
   delay(500);
-  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,100,0));
+  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,0,100));
   delay(1000);
   Serial.println("--- BLUE --- ");
   for (int i = 0; i < 3; i++) {
