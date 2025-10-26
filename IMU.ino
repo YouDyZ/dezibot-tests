@@ -47,10 +47,7 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
     }
 }
 
-void testIMU() {
-  Serial.println("--- TEST IMU ---");
-  readIMU(50, 50, 0, "max");
-}
+
 
 void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
   Serial.println("average absolute acceleration over 10 samples:");
@@ -85,21 +82,26 @@ void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
   );
   Serial.print("ResultsZ: ");
   Serial.println(
-      compareTestValue((uint16_t)((sumz + 5) / 10), sollZ, "min")? "true" : "false"
+      compareTestValue((uint16_t)((sumz + 5) / 10), sollZ, type)? "true" : "false"
   );
+}
+
+void testIMU() {
+  Serial.println("--- TEST IMU ---");
+  readIMU(100, 50, -1, "max");
 }
 
 void testMotorR() {
     Serial.println("--- TEST MOTOR RIGHT ---");
     dezibot.motion.rotateAntiClockwise();
-    readIMU(100,0,0, "min");
+    readIMU(200,0,0, "min");
     dezibot.motion.stop();
 }
 
 void testMotorL() {
     Serial.println("--- TEST MOTOR LEFT ---");
     dezibot.motion.rotateClockwise();
-    readIMU(100,0,0, "min");
+    readIMU(200,0,0, "min");
     dezibot.motion.stop();
 }
 
