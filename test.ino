@@ -1,5 +1,6 @@
-#include <Arduino.h>
-#include <Dezibot.h>
+#include "Dezibot.h"
+
+Dezibot dezibot;
 
 #define BAT_CHG_STAT 39
 #define BAT_ADC 10
@@ -7,67 +8,96 @@
 #define VUSB_SENS 38
 #define FL_PT_EN 37
 
-Dezibot dezibot = Dezibot();
+void runTests() {
+  Serial.println("IMU Tests:");
 
-uint16_t getAverage(color color) {
-  uint32_t sum = 0;
-  for (uint i = 0; i < 10; i++) {
-    uint16_t scan =
-      //Serial.print(scan);
-      Serial.print(" ");
-    sum = (uint32_t)sum + dezibot.colorDetection.getColorValue(color);
-    ;
-    Serial.print(sum);
-    delay(100);
-  }
-  Serial.print(color);
-  Serial.print(" Sensor 10er average: ");
-  return (uint16_t)((sum + 5) / 10);
-}
-
-void testIMU() {
-  Serial.println("--- TEST IMU ---");
-  uint32_t sumx = 0;
-  uint32_t sumy = 0;
-  uint32_t sumz = 0;
-  for (uint i = 0; i < 10; i++) {
+  Serial.print("X: ");
+  for (int i = 0; i < 10; i++) {
     IMUResult res = dezibot.motion.detection.getAcceleration();
-    //Serial.print(scan);
-    sumx = sumx + abs((int32_t)res.x);
-    sumy = sumy + abs((int32_t)res.y);
-    sumz = sumz + abs((int32_t)res.z);
-    delay(100);
+    Serial.print(res.x);
+    Serial.print(' ');
+    delay(10);
   }
-  //sumx = ((sumx+5)/10);
-  //sumy = ((sumy+5)/10);
-  //sumz = ((sumz+5)/10);
-  Serial.print("x: ");
-  Serial.print((sumx + 5) / 10);
-  Serial.print("/");
-  Serial.print(((sumx + 5) / 10) / 16);
-  Serial.print("g, y: ");
-  Serial.print((sumy + 5) / 10);
-  Serial.print("/");
-  Serial.print(((sumy + 5) / 10) / 16);
-  Serial.print("g, z: ");
-  Serial.print((sumz + 5) / 10);
-  Serial.print("/");
-  Serial.print(((sumz + 5) / 10) / 16);
-  Serial.println("g");
+  Serial.println();
+
+  Serial.print("Y: ");
+  for (int i = 0; i < 10; i++) {
+    IMUResult res = dezibot.motion.detection.getAcceleration();
+    Serial.print(res.y);
+    Serial.print(' ');
+    delay(10);
+  }
+  Serial.println();
+
+  Serial.print("Z: ");
+  for (int i = 0; i < 10; i++) {
+    IMUResult res = dezibot.motion.detection.getAcceleration();
+    Serial.print(res.z);
+    Serial.print(' ');
+    delay(10);
+  }
+  Serial.println();
 }
 
-void testMotorR() {
-  Serial.println("--- TEST MOTOR RIGHT ---");
-  dezibot.motion.rotateAntiClockwise();
-  testIMU();
-  dezibot.motion.stop();
+void runTestsRGB() {
+    Serial.print("RED Sensor: ");
+    for (int i = 0; i < 10; i++) {
+        Serial.print(dezibot.colorDetection.getColorValue(VEML_RED));
+        Serial.print(" ");
+        delay(100);
+    }
+    Serial.println();
+    Serial.print("GREEN Sensor: ");
+    for (int i = 0; i < 10; i++) {
+        Serial.print(dezibot.colorDetection.getColorValue(VEML_GREEN));
+        Serial.print(" ");
+        delay(100);
+    }
+    Serial.println();
+    Serial.print("BLUE Sensor: ");
+    for (int i = 0; i < 10; i++) {  
+        Serial.print(dezibot.colorDetection.getColorValue(VEML_BLUE));
+        Serial.print(" ");
+        delay(100);
+    }
+    Serial.println();
+    Serial.print("WHITE Sensor: ");
+    for (int i = 0; i < 10; i++) {
+        Serial.print(dezibot.colorDetection.getColorValue(VEML_WHITE));
+        Serial.print(" ");
+        delay(100);
+    }
 }
 
-void testMotorL() {
-  Serial.println("--- TEST MOTOR LEFT ---");
-  dezibot.motion.rotateClockwise();
-  testIMU();
-  dezibot.motion.stop();
+void testIRSensor() {
+  Serial.println("IR Sensor Front:");
+  for (int i = 0; i < 10; i++) {
+
+    Serial.println(dezibot.lightDetection.getValue(IR_FRONT));
+    Serial.print(" ");
+    delay(1000);
+  }
+  Serial.println();
+  Serial.println("IR Sensor Left:");
+  for (int i = 0; i < 10; i++) {
+    Serial.println(dezibot.lightDetection.getValue(IR_LEFT));
+    Serial.print(" ");
+    delay(1000);
+  }
+  Serial.println();
+  Serial.println("IR Sensor Back:");
+  for (int i = 0; i < 10; i++) {
+    Serial.println(dezibot.lightDetection.getValue(IR_BACK));
+    Serial.print(" ");
+    delay(1000);
+  }
+  Serial.println();
+  Serial.println("IR Sensor Right:");
+  for (int i = 0; i < 10; i++) {
+    Serial.println(dezibot.lightDetection.getValue(IR_RIGHT));
+    Serial.print(" ");
+    delay(1000);
+  }
 }
 
 void init() {
@@ -84,17 +114,102 @@ void init() {
 }
 
 void setup() {
-    Serial.begin(115200);
-    init();
-    dezibot.display.print("Test start in 20");
-    delay(20000);
-    testIMU();
-    testMotorR();
-    testMotorL();
-    dezibot.display.clear();
-    Serial.end();
+  Serial.begin(115200);
+  init();
+  delay(10000);
+  for (int i = 0; i < 3; i++) {
+    runTests();
+    delay(5000);
+  }
+  Serial.println("IMU Test Finished");
+  Serial.println("Starting Motor Tests in Left");
+  dezibot.motion.rotateClockwise();
+  delay(10000);
+  for (int i = 0; i < 3; i++) {
+    runTests();
+    delay(5000);
+  }
+  dezibot.motion.stop();
+  Serial.println("Motor Test 1 Finished");
+  Serial.println("Starting Motor Tests Right");
+  dezibot.motion.rotateAntiClockwise();
+  delay(10000);
+  for (int i = 0; i < 3; i++) {
+    runTests();
+    delay(5000);
+  }
+  dezibot.motion.stop();
+  Serial.println("Motor Test 2 Finished");
+
+  Serial.println("RGB LED und VEML TEST");
+  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,0,0));
+  delay(1000);
+  Serial.println("--- OFF --- ");
+  for (int i = 0; i < 3; i++) {
+    runTestsRGB();
+    delay(5000);
+  }
+  dezibot.multiColorLight.turnOffLed(ALL);
+  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(100,100,100));
+  delay(1000);
+  Serial.println("--- WHITE --- ");
+  for (int i = 0; i < 3; i++) {
+    runTestsRGB();
+    delay(5000);
+  }
+  dezibot.multiColorLight.turnOffLed(ALL);
+  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(100,0,0));
+  Serial.println("--- RED --- ");
+  for (int i = 0; i < 3; i++) {
+    runTestsRGB();
+    delay(5000);
+  }
+
+  dezibot.multiColorLight.turnOffLed(ALL);
+  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,0,100));
+  delay(1000);
+  Serial.println("--- BLUE --- ");
+  for (int i = 0; i < 3; i++) {
+    runTestsRGB();
+    delay(5000);
+  }
+  dezibot.multiColorLight.turnOffLed(ALL);
+  Serial.println("RGB LED und VEML TEST Finished");
+  Serial.println("Infrared Sensor Test");
+  Serial.println("IR Sensor Values. Sensors Off:");
+  
+  for (int i = 0; i < 3; i++) {
+    Serial.print("IR Sensor Value: ");
+    testIRSensor();
+    delay(1000);
+  }
+  Serial.println("IR Sensor Values Test 2:");
+  digitalWrite(16, HIGH);
+  for (int i = 0; i < 3; i++) {
+    Serial.print("IR Sensor Value: ");
+    testIRSensor();
+    delay(1000);
+  }
+  digitalWrite(16, LOW);
+  delay(1000);
+  digitalWrite(17, HIGH);
+  for (int i = 0; i < 3; i++) {
+    Serial.print("IR Sensor Value: ");
+    testIRSensor();
+    delay(1000);
+  }
+  digitalWrite(17, LOW);
+  delay(1000);
+  digitalWrite(18, HIGH);
+  for (int i = 0; i < 3; i++) {
+    Serial.print("IR Sensor Value: ");
+    testIRSensor();
+    delay(1000);
+  }
+  digitalWrite(18, LOW);
+  Serial.println("Infrared Sensor Test Finished");
 }
 
 void loop() {
-
+  // put your main code here, to run repeatedly:
 }
