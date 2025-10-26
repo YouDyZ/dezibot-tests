@@ -142,7 +142,7 @@ void setup() {
   Serial.println("Motor Test 2 Finished");
 
   Serial.println("RGB LED und VEML TEST");
-  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,0,0));
+  dezibot.multiColorLight.turnOffLed(ALL);
   delay(1000);
   Serial.println("--- OFF --- ");
   for (int i = 0; i < 3; i++) {
@@ -150,10 +150,10 @@ void setup() {
     delay(5000);
   }
   dezibot.multiColorLight.turnOffLed(ALL);
-  delay(500);
+  Serial.println("--- WHITE --- ");
+  delay(1000);
   dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(100,100,100));
   delay(1000);
-  Serial.println("--- WHITE --- ");
   for (int i = 0; i < 3; i++) {
     runTestsRGB();
     delay(5000);
@@ -179,7 +179,7 @@ void setup() {
 
   dezibot.multiColorLight.turnOffLed(ALL);
   delay(500);
-  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,0,100));
+  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,100,0));
   delay(1000);
   Serial.println("--- BLUE --- ");
   for (int i = 0; i < 3; i++) {
