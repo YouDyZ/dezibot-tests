@@ -136,12 +136,6 @@ void setup() {
         Serial.println(i+1);
         runTests();
     }
-
-    testIMU();
-    delay(2000);
-    testMotorR();
-    delay(2000);
-    testMotorL();
     Serial.print("Test: ");
     Serial.println(testPassed ? "PASSED" : "FAILED");
 }
