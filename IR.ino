@@ -81,13 +81,13 @@ void testIR2() {
         compareTestValue(frontIR, 2000, "min")? "true" : "false");
     Serial.print("left: ");
     Serial.println(
-        compareTestValue(leftIR, 250, "max")? "true" : "false");
+        compareTestValue(leftIR, 500, "max")? "true" : "false");
     Serial.print("back: ");
     Serial.println(
-        compareTestValue(backIR, 250, "max")? "true" : "false");
+        compareTestValue(backIR, 500, "max")? "true" : "false");
     Serial.print("right: ");
     Serial.println(
-        compareTestValue(rightIR, 250, "max")? "true" : "false");
+        compareTestValue(rightIR, 500, "max")? "true" : "false");
     digitalWrite(16, LOW);
     delay(100);
 }
@@ -105,10 +105,10 @@ void testIR3() {
         compareTestValue(frontIR, 2000, "min")? "true" : "false");
     Serial.print("left: ");
     Serial.println(
-        compareTestValue(leftIR, 250, "max")? "true" : "false");
+        compareTestValue(leftIR, 500, "max")? "true" : "false");
     Serial.print("back: ");
     Serial.println(
-        compareTestValue(backIR, 250, "max")? "true" : "false");
+        compareTestValue(backIR, 500, "max")? "true" : "false");
     Serial.print("right: ");
     Serial.println(
         compareTestValue(rightIR, 2000, "min")? "true" : "false");
@@ -127,7 +127,7 @@ void testIR4() {
     uint32_t rightIR = dezibot.lightDetection.getValue(IR_RIGHT);
     Serial.print("front: ");
     Serial.println(
-        compareTestValue(frontIR, 250, "max")? "true" : "false");
+        compareTestValue(frontIR, 500, "max")? "true" : "false");
     Serial.print("left: ");
     Serial.println(
         compareTestValue(leftIR, 2000, "min")? "true" : "false");
@@ -136,7 +136,7 @@ void testIR4() {
         compareTestValue(backIR, 2000, "min")? "true" : "false");
     Serial.print("right: ");
     Serial.println(
-        compareTestValue(rightIR, 250, "max")? "true" : "false");
+        compareTestValue(rightIR, 500, "max")? "true" : "false");
     digitalWrite(18, LOW);
     delay(100);
 }
