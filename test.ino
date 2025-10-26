@@ -76,21 +76,21 @@ void testIRSensor() {
 
     Serial.print(dezibot.lightDetection.getValue(IR_FRONT));
     Serial.print(" ");
-    delay(100);
+    delay(500);
   }
   Serial.println();
   Serial.println("IR Sensor Left:");
   for (int i = 0; i < 10; i++) {
     Serial.print(dezibot.lightDetection.getValue(IR_LEFT));
     Serial.print(" ");
-    delay(100);
+    delay(500);
   }
   Serial.println();
   Serial.println("IR Sensor Back:");
   for (int i = 0; i < 10; i++) {
     Serial.print(dezibot.lightDetection.getValue(IR_BACK));
     Serial.print(" ");
-    delay(100);
+    delay(500);
   }
   Serial.println();
   Serial.println("IR Sensor Right:");
@@ -150,6 +150,7 @@ void setup() {
     delay(5000);
   }
   dezibot.multiColorLight.turnOffLed(ALL);
+  delay(500);
   dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(100,100,100));
   delay(1000);
   Serial.println("--- WHITE --- ");
@@ -158,14 +159,26 @@ void setup() {
     delay(5000);
   }
   dezibot.multiColorLight.turnOffLed(ALL);
+  delay(500);
   dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(100,0,0));
+  delay(1000);
   Serial.println("--- RED --- ");
+  for (int i = 0; i < 3; i++) {
+    runTestsRGB();
+    delay(5000);
+  }
+  dezibot.multiColorLight.turnOffLed(ALL);
+  delay(500);
+  dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,100,0));
+  delay(1000);
+  Serial.println("--- GREEN --- ");
   for (int i = 0; i < 3; i++) {
     runTestsRGB();
     delay(5000);
   }
 
   dezibot.multiColorLight.turnOffLed(ALL);
+  delay(500);
   dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(0,0,100));
   delay(1000);
   Serial.println("--- BLUE --- ");
@@ -181,14 +194,14 @@ void setup() {
   for (int i = 0; i < 3; i++) {
     Serial.print("IR Sensor Value: ");
     testIRSensor();
-    delay(1000);
+    delay(500);
   }
   Serial.println("IR Sensor Values Test 2:");
   digitalWrite(16, HIGH);
   for (int i = 0; i < 3; i++) {
     Serial.print("IR Sensor Value: ");
     testIRSensor();
-    delay(1000);
+    delay(500);
   }
   digitalWrite(16, LOW);
   delay(1000);
@@ -196,7 +209,7 @@ void setup() {
   for (int i = 0; i < 3; i++) {
     Serial.print("IR Sensor Value: ");
     testIRSensor();
-    delay(1000);
+    delay(500);
   }
   digitalWrite(17, LOW);
   delay(1000);
@@ -204,7 +217,7 @@ void setup() {
   for (int i = 0; i < 3; i++) {
     Serial.print("IR Sensor Value: ");
     testIRSensor();
-    delay(1000);
+    delay(500);
   }
   digitalWrite(18, LOW);
   Serial.println("Infrared Sensor Test Finished");
