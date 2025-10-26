@@ -50,16 +50,42 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
 
 
 void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
-  Serial.println("average absolute acceleration over 10 samples:");
-  uint32_t sumx = 0;
-  uint32_t sumy = 0;
-  uint32_t sumz = 0;
+  Serial.println("min and max values for 10 scans:");
+  int32_t minx = 0;
+  int32_t maxx = 0;
+  int32_t miny = 0;
+  int32_t maxy = 0;
+  int32_t minz = 0;
+  int32_t maxz = 0;
   for (uint i = 0; i < 10; i++) {
     IMUResult res = dezibot.motion.detection.getAcceleration();
-    //Serial.print(scan);
-    sumx = sumx + abs((int32_t)res.x);
-    sumy = sumy + abs((int32_t)res.y);
-    sumz = sumz + abs((int32_t)res.z);
+    if (i == 0) {
+      minx = res.x;
+      maxx = res.x;
+      miny = res.y;
+      maxy = res.y;
+      minz = res.z;
+      maxz = res.z;
+    } else {
+      if (res.x < minx) {
+        minx = res.x;
+      }
+      if (res.x > maxx) {
+        maxx = res.x;
+      }
+      if (res.y < miny) {
+        miny = res.y;
+      }
+      if (res.y > maxy) {
+        maxy = res.y;
+      }
+      if (res.z < minz) {
+        minz = res.z;
+      }
+      if (res.z > maxz) {
+        maxz = res.z;
+      }
+    }
     delay(100);
   }
   //sumx = ((sumx+5)/10);
@@ -74,15 +100,15 @@ void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
 
   Serial.print("ResultsX: ");
   Serial.println(
-      compareTestValue((uint16_t)((sumx + 5) / 10), sollX, type)? "true" : "false"
+      compareTestValue(maxx-minx, sollX, type)? "true" : "false"
   );
   Serial.print("ResultsY: ");
   Serial.println(
-      compareTestValue((uint16_t)((sumy + 5) / 10), sollY, type)? "true" : "false"
+      compareTestValue(maxy-miny, sollY, type)? "true" : "false"
   );
   Serial.print("ResultsZ: ");
   Serial.println(
-      compareTestValue((uint16_t)((sumz + 5) / 10), sollZ, type)? "true" : "false"
+      compareTestValue(maxz-minz, sollZ, type)? "true" : "false"
   );
 }
 
@@ -149,3 +175,5 @@ void setup() {
 
 void loop() {
 }
+
+arduino-cli compile --fqbn esp32:esp32:esp32s3usbotg:USBMode=hwcdc,PartitionScheme=default,DebugLevel=none,EraseFlash=none test/test.ino && arduino-cli upload -p /dev/ttyACM0 --fqbn esp32:esp32:esp32s3usbotg:USBMode=hwcdc,PartitionScheme=default,DebugLevel=none,EraseFlash=none test/test.ino && arduino-cli monitor -p /dev/ttyACM0 --fqbn esp32:esp32:esp32s3usbotg --config 115200
