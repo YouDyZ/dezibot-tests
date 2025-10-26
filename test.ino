@@ -116,32 +116,8 @@ void init() {
 void setup() {
   Serial.begin(115200);
   init();
-  delay(10000);
-  for (int i = 0; i < 3; i++) {
-    runTests();
-    delay(5000);
-  }
-  Serial.println("IMU Test Finished");
-  Serial.println("Starting Motor Tests in Left");
-  dezibot.motion.rotateClockwise();
-  delay(10000);
-  for (int i = 0; i < 3; i++) {
-    runTests();
-    delay(5000);
-  }
-  dezibot.motion.stop();
-  Serial.println("Motor Test 1 Finished");
-  Serial.println("Starting Motor Tests Right");
-  dezibot.motion.rotateAntiClockwise();
-  delay(10000);
-  for (int i = 0; i < 3; i++) {
-    runTests();
-    delay(5000);
-  }
-  dezibot.motion.stop();
-  Serial.println("Motor Test 2 Finished");
 
-  Serial.println("RGB LED und VEML TEST");
+Serial.println("RGB LED und VEML TEST");
   dezibot.multiColorLight.turnOffLed(ALL);
   delay(1000);
   Serial.println("--- OFF --- ");
@@ -188,6 +164,33 @@ void setup() {
   }
   dezibot.multiColorLight.turnOffLed(ALL);
   Serial.println("RGB LED und VEML TEST Finished");
+
+  delay(10000);
+  for (int i = 0; i < 3; i++) {
+    runTests();
+    delay(5000);
+  }
+  Serial.println("IMU Test Finished");
+  Serial.println("Starting Motor Tests in Left");
+  dezibot.motion.rotateClockwise();
+  delay(10000);
+  for (int i = 0; i < 3; i++) {
+    runTests();
+    delay(5000);
+  }
+  dezibot.motion.stop();
+  Serial.println("Motor Test 1 Finished");
+  Serial.println("Starting Motor Tests Right");
+  dezibot.motion.rotateAntiClockwise();
+  delay(10000);
+  for (int i = 0; i < 3; i++) {
+    runTests();
+    delay(5000);
+  }
+  dezibot.motion.stop();
+  Serial.println("Motor Test 2 Finished");
+
+  
   Serial.println("Infrared Sensor Test");
   Serial.println("IR Sensor Values. Sensors Off:");
   
