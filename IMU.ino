@@ -117,6 +117,7 @@ void init() {
 }
 
 void runTests() {
+    testPassed = true;
     testIMU();
     delay(2000);
     testMotorR();
@@ -138,7 +139,7 @@ void setup() {
         Serial.println(attempts);
         runTests();
     } while (!testPassed && attempts < 3);
-    
+
     Serial.print("Test: ");
     Serial.println(testPassed ? "PASSED" : "FAILED");
 }
