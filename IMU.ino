@@ -116,10 +116,27 @@ void init() {
     pinMode(21, INPUT);
 }
 
+void runTests() {
+    testIMU();
+    delay(2000);
+    testMotorR();
+    delay(2000);
+    testMotorL();
+}
+
+
 void setup() {
     Serial.begin(115200);
     init();
     delay(10000);
+
+    // Run Tests up to 3 Times, it need to pas once
+    for (uint16_t i = 0; i < 3 && !testPassed; i++) {
+        Serial.print("Test Run ");
+        Serial.println(i+1);
+        runTests();
+    }
+
     testIMU();
     delay(2000);
     testMotorR();
