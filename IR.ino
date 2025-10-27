@@ -167,7 +167,7 @@ void testIR4() {
     Serial.print("right: ");
     Serial.println(
         compareTestValue(rightIR, 500, "max")? "true" : "false");
-    erial.print("front DL: ");
+    Serial.print("front DL: ");
     Serial.println(
         compareTestValue(frontDL, 1000, "max")? "true" : "false");
     Serial.print("bottom DL: ");
