@@ -51,12 +51,7 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
 
 void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
   Serial.println("max-min values for 10 scans:");
-  int32_t minx = 0;
-  int32_t maxx = 0;
-  int32_t miny = 0;
-  int32_t maxy = 0;
-  int32_t minz = 0;
-  int32_t maxz = 0;
+  int32_t minx, maxx, miny, maxy, minz, maxz;
   for (uint i = 0; i < 10; i++) {
     IMUResult res = dezibot.motion.detection.getAcceleration();
     if (i == 0) {
@@ -88,25 +83,15 @@ void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
     }
     delay(100);
   }
-  //sumx = ((sumx+5)/10);
-  //sumy = ((sumy+5)/10);
-  //sumz = ((sumz+5)/10);
-  Serial.print("x: ");
-  Serial.print((maxx-minx));
-  Serial.print(", y: ");
-  Serial.print((maxy-miny));
-  Serial.print(", z: ");
-  Serial.println((maxz-minz));
-
-  Serial.print("ResultsX: ");
+  Serial.print("MaxDiffX: ");
   Serial.println(
       compareTestValue(maxx-minx, sollX, type)? "true" : "false"
   );
-  Serial.print("ResultsY: ");
+  Serial.print("MaxDiffY: ");
   Serial.println(
       compareTestValue(maxy-miny, sollY, type)? "true" : "false"
   );
-  Serial.print("ResultsZ: ");
+  Serial.print("MaxDiffZ: ");
   Serial.println(
       compareTestValue(maxz-minz, sollZ, type)? "true" : "false"
   );
@@ -133,14 +118,12 @@ void testMotorL() {
 
 void init() {
     dezibot.begin();
-    //a. GPIO16, GPIO17, GPIO18 als Ausgang, Low geschaltet.
     pinMode(16, OUTPUT);
     pinMode(17, OUTPUT);
     pinMode(18, OUTPUT);
     digitalWrite(16, LOW);
     digitalWrite(17, LOW);
     digitalWrite(18, LOW);
-    // b. GPIO21 als Eingang, ohne interne Pull-Up-/Down-Widerstände.
     pinMode(21, INPUT);
 }
 
@@ -160,13 +143,13 @@ void setup() {
     init();
     delay(10000);
 
-    // Run Tests up to 3 Times, it need to pas once
     uint8_t attempts = 0;
     do {
         attempts++;
         Serial.print("Attempt: ");
         Serial.println(attempts);
         runTests();
+        delay(10000);
     } while (!testPassed && attempts < 3);
 
     Serial.print("Test: ");
