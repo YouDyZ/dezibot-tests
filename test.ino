@@ -98,6 +98,21 @@ void testIRSensor() {
     Serial.print(dezibot.lightDetection.getValue(IR_RIGHT));
     Serial.print(" ");
   }
+  Serial.println();
+  Serial.println("Daylight Sensor Front:");
+  for (int i = 0; i < 10; i++) {
+    Serial.print(dezibot.lightDetection.getValue(DL_FRONT));
+    Serial.print(" ");
+    delay(500);
+  }
+  Serial.println();
+  Serial.println("Daylight Sensor Bottom:");
+  for (int i = 0; i < 10; i++) {
+    Serial.print(dezibot.lightDetection.getValue(DL_BOTTOM));
+    Serial.print(" ");
+    delay(500);
+  }
+  Serial.println();
 }
 
 void init() {
@@ -117,8 +132,9 @@ void setup() {
   Serial.begin(115200);
   init();
 
-Serial.println("RGB LED und VEML TEST");
-  dezibot.multiColorLight.turnOffLed(ALL);
+/*Serial.println("RGB LED und VEML TEST");
+  
+dezibot.multiColorLight.turnOffLed(ALL);
   delay(1000);
   Serial.println("--- OFF --- ");
   for (int i = 0; i < 3; i++) {
@@ -126,8 +142,8 @@ Serial.println("RGB LED und VEML TEST");
     delay(5000);
   }
   dezibot.multiColorLight.turnOffLed(ALL);
-  Serial.println("--- WHITE --- ");
   delay(1000);
+  Serial.println("--- WHITE --- ");
   dezibot.multiColorLight.setLed(BOTTOM, dezibot.multiColorLight.color(100,100,100));
   delay(1000);
   for (int i = 0; i < 3; i++) {
@@ -189,19 +205,19 @@ Serial.println("RGB LED und VEML TEST");
   }
   dezibot.motion.stop();
   Serial.println("Motor Test 2 Finished");
-
+*/
   
   Serial.println("Infrared Sensor Test");
   Serial.println("IR Sensor Values. Sensors Off:");
   
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 1; i++) {
     Serial.print("IR Sensor Value: ");
     testIRSensor();
     delay(500);
   }
   Serial.println("IR Sensor Values Test 2:");
   digitalWrite(16, HIGH);
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 1; i++) {
     Serial.print("IR Sensor Value: ");
     testIRSensor();
     delay(500);
@@ -209,7 +225,8 @@ Serial.println("RGB LED und VEML TEST");
   digitalWrite(16, LOW);
   delay(1000);
   digitalWrite(17, HIGH);
-  for (int i = 0; i < 3; i++) {
+  Serial.println("IR Sensor Values Test 3:");
+  for (int i = 0; i < 1; i++) {
     Serial.print("IR Sensor Value: ");
     testIRSensor();
     delay(500);
@@ -217,7 +234,8 @@ Serial.println("RGB LED und VEML TEST");
   digitalWrite(17, LOW);
   delay(1000);
   digitalWrite(18, HIGH);
-  for (int i = 0; i < 3; i++) {
+  Serial.println("IR Sensor Values Test 4:");
+  for (int i = 0; i < 1; i++) {
     Serial.print("IR Sensor Value: ");
     testIRSensor();
     delay(500);

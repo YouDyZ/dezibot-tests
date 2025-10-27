@@ -49,10 +49,12 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
 // all off
 void testIR1() {
     Serial.println("--- IR Transistor 1 ---");
-    uint32_t frontIR = dezibot.lightDetection.getValue(IR_FRONT);
-    uint32_t leftIR = dezibot.lightDetection.getValue(IR_LEFT);
-    uint32_t backIR = dezibot.lightDetection.getValue(IR_BACK);
-    uint32_t rightIR = dezibot.lightDetection.getValue(IR_RIGHT);
+    uint32_t frontIR = dezibot.lightDetection.getAverageValue(IR_FRONT, 10, 50);
+    uint32_t leftIR = dezibot.lightDetection.getAverageValue(IR_LEFT, 10, 50);
+    uint32_t backIR = dezibot.lightDetection.getAverageValue(IR_BACK, 10, 50);
+    uint32_t rightIR = dezibot.lightDetection.getAverageValue(IR_RIGHT, 10, 50);
+    uint32_t frontDL = dezibot.lightDetection.getAverageValue(DL_FRONT, 10, 50);
+    uint32_t botDL = dezibot.lightDetection.getAverageValue(DL_BOTTOM, 10, 50);
 
     Serial.print("front: ");
     Serial.println(
@@ -66,19 +68,29 @@ void testIR1() {
     Serial.print("right: ");
     Serial.println(
         compareTestValue(rightIR, 100, "max")? "true" : "false");
+    
+    Serial.print("front DL: ");
+    Serial.println(
+        compareTestValue(frontDL, 1000, "max")? "true" : "false");
+    Serial.print("bottom DL: ");
+    Serial.println(
+        compareTestValue(botDL, 1000, "max")? "true" : "false");
 }
+
 // front active
 void testIR2() {
     Serial.println("--- IR Transistor 2 ---");
     digitalWrite(16, HIGH);
     delay(100);
-    uint32_t frontIR = dezibot.lightDetection.getValue(IR_FRONT);
-    uint32_t leftIR = dezibot.lightDetection.getValue(IR_LEFT);
-    uint32_t backIR = dezibot.lightDetection.getValue(IR_BACK);
-    uint32_t rightIR = dezibot.lightDetection.getValue(IR_RIGHT);
+    uint32_t frontIR = dezibot.lightDetection.getAverageValue(IR_FRONT, 10, 50);
+    uint32_t leftIR = dezibot.lightDetection.getAverageValue(IR_LEFT, 10, 50);
+    uint32_t backIR = dezibot.lightDetection.getAverageValue(IR_BACK, 10, 50);
+    uint32_t rightIR = dezibot.lightDetection.getAverageValue(IR_RIGHT, 10, 50);
+    uint32_t frontDL = dezibot.lightDetection.getAverageValue(DL_FRONT, 10, 50);
+    uint32_t botDL = dezibot.lightDetection.getAverageValue(DL_BOTTOM, 10, 50);
     Serial.print("front: ");
     Serial.println(
-        compareTestValue(frontIR, 2000, "min")? "true" : "false");
+        compareTestValue(frontIR, 3000, "max")? "true" : "false");
     Serial.print("left: ");
     Serial.println(
         compareTestValue(leftIR, 500, "max")? "true" : "false");
@@ -88,18 +100,28 @@ void testIR2() {
     Serial.print("right: ");
     Serial.println(
         compareTestValue(rightIR, 500, "max")? "true" : "false");
+    Serial.print("front DL: ");
+    Serial.println(
+        compareTestValue(frontDL, 3500, "min")? "true" : "false");
+    Serial.print("bottom DL: ");
+    Serial.println(
+        compareTestValue(botDL, 1000, "max")? "true" : "false");
     digitalWrite(16, LOW);
+    
     delay(100);
 }
+
 // front and right active
 void testIR3() {
     Serial.println("--- IR Transistor 3 ---");
     digitalWrite(17, HIGH);
     delay(100);
-    uint32_t frontIR = dezibot.lightDetection.getValue(IR_FRONT);
-    uint32_t leftIR = dezibot.lightDetection.getValue(IR_LEFT);
-    uint32_t backIR = dezibot.lightDetection.getValue(IR_BACK);
-    uint32_t rightIR = dezibot.lightDetection.getValue(IR_RIGHT);
+    uint32_t frontIR = dezibot.lightDetection.getAverageValue(IR_FRONT, 10, 50);
+    uint32_t leftIR = dezibot.lightDetection.getAverageValue(IR_LEFT, 10, 50);
+    uint32_t backIR = dezibot.lightDetection.getAverageValue(IR_BACK, 10, 50);
+    uint32_t rightIR = dezibot.lightDetection.getAverageValue(IR_RIGHT, 10, 50);
+    uint32_t frontDL = dezibot.lightDetection.getAverageValue(DL_FRONT, 10, 50);
+    uint32_t botDL = dezibot.lightDetection.getAverageValue(DL_BOTTOM, 10, 50);
     Serial.print("front: ");
     Serial.println(
         compareTestValue(frontIR, 2000, "min")? "true" : "false");
@@ -112,6 +134,12 @@ void testIR3() {
     Serial.print("right: ");
     Serial.println(
         compareTestValue(rightIR, 2000, "min")? "true" : "false");
+    Serial.print("front DL: ");
+    Serial.println(
+        compareTestValue(frontDL, 2500, "max")? "true" : "false");
+    Serial.print("bottom DL: ");
+    Serial.println(
+        compareTestValue(botDL, 1000, "max")? "true" : "false");
     digitalWrite(17, LOW);
     delay(100);
 
@@ -121,22 +149,30 @@ void testIR4() {
     Serial.println("--- IR Transistor 4 ---");
     digitalWrite(18, HIGH);
     delay(100);
-    uint32_t frontIR = dezibot.lightDetection.getValue(IR_FRONT);
-    uint32_t leftIR = dezibot.lightDetection.getValue(IR_LEFT);
-    uint32_t backIR = dezibot.lightDetection.getValue(IR_BACK);
-    uint32_t rightIR = dezibot.lightDetection.getValue(IR_RIGHT);
+    uint32_t frontIR = dezibot.lightDetection.getAverageValue(IR_FRONT, 10, 50);
+    uint32_t leftIR = dezibot.lightDetection.getAverageValue(IR_LEFT, 10, 50);
+    uint32_t backIR = dezibot.lightDetection.getAverageValue(IR_BACK, 10, 50);
+    uint32_t rightIR = dezibot.lightDetection.getAverageValue(IR_RIGHT, 10, 50);
+    uint32_t frontDL = dezibot.lightDetection.getAverageValue(DL_FRONT, 10, 50);
+    uint32_t botDL = dezibot.lightDetection.getAverageValue(DL_BOTTOM, 10, 50);
     Serial.print("front: ");
     Serial.println(
         compareTestValue(frontIR, 500, "max")? "true" : "false");
     Serial.print("left: ");
     Serial.println(
-        compareTestValue(leftIR, 2000, "min")? "true" : "false");
+        compareTestValue(leftIR, 3000, "min")? "true" : "false");
     Serial.print("back: ");
     Serial.println(
-        compareTestValue(backIR, 2000, "min")? "true" : "false");
+        compareTestValue(backIR, 3000, "min")? "true" : "false");
     Serial.print("right: ");
     Serial.println(
         compareTestValue(rightIR, 500, "max")? "true" : "false");
+    erial.print("front DL: ");
+    Serial.println(
+        compareTestValue(frontDL, 1000, "max")? "true" : "false");
+    Serial.print("bottom DL: ");
+    Serial.println(
+        compareTestValue(botDL, 1000, "max")? "true" : "false");
     digitalWrite(18, LOW);
     delay(100);
 }
