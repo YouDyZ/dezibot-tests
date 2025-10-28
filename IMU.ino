@@ -11,6 +11,17 @@ Dezibot dezibot = Dezibot();
 
 bool testPassed = true;
 
+void init() {
+    dezibot.begin();
+    pinMode(16, OUTPUT);
+    pinMode(17, OUTPUT);
+    pinMode(18, OUTPUT);
+    digitalWrite(16, LOW);
+    digitalWrite(17, LOW);
+    digitalWrite(18, LOW);
+    pinMode(21, INPUT);
+}
+
 bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
     // messwert kleiner gleich soll
     if (type == "max") {
@@ -46,8 +57,6 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
         return false;
     }
 }
-
-
 
 void readIMU(uint16_t sollX, uint16_t sollY, uint16_t sollZ, String type) {
   Serial.println("max-min values for 10 scans:");
@@ -116,19 +125,7 @@ void testMotorL() {
     dezibot.motion.stop();
 }
 
-void init() {
-    dezibot.begin();
-    pinMode(16, OUTPUT);
-    pinMode(17, OUTPUT);
-    pinMode(18, OUTPUT);
-    digitalWrite(16, LOW);
-    digitalWrite(17, LOW);
-    digitalWrite(18, LOW);
-    pinMode(21, INPUT);
-}
-
 void runTests() {
-    
     testPassed = true;
     testIMU();
     delay(2000);
@@ -136,7 +133,6 @@ void runTests() {
     delay(2000);
     testMotorL();
 }
-
 
 void setup() {
     Serial.begin(115200);

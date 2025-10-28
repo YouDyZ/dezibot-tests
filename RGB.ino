@@ -8,7 +8,18 @@
 #define FL_PT_EN 37
 
 Dezibot dezibot = Dezibot();
+
 bool testPassed = true;
+
+void init() {
+    pinMode(16, OUTPUT);
+    pinMode(17, OUTPUT);
+    pinMode(18, OUTPUT);
+    digitalWrite(16, LOW);
+    digitalWrite(17, LOW);
+    digitalWrite(18, LOW);
+    pinMode(21, INPUT);
+}
 
 uint16_t getAverage(color color) {
   uint32_t sum = 0;
@@ -177,18 +188,6 @@ void testBlue() {
         compareTestValue(getAverage(VEML_WHITE), 0, "min")? "true" : "false"
     );
     dezibot.multiColorLight.turnOffLed(ALL);
-}
-
-void init() {
-    //a. GPIO16, GPIO17, GPIO18 als Ausgang, Low geschaltet.
-    pinMode(16, OUTPUT);
-    pinMode(17, OUTPUT);
-    pinMode(18, OUTPUT);
-    digitalWrite(16, LOW);
-    digitalWrite(17, LOW);
-    digitalWrite(18, LOW);
-    // b. GPIO21 als Eingang, ohne interne Pull-Up-/Down-Widerstände.
-    pinMode(21, INPUT);
 }
 
 void setup() {

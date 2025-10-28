@@ -11,6 +11,17 @@ Dezibot dezibot = Dezibot();
 
 bool testPassed = true;
 
+void init() {
+    dezibot.begin();
+    pinMode(16, OUTPUT);
+    pinMode(17, OUTPUT);
+    pinMode(18, OUTPUT);
+    digitalWrite(16, LOW);
+    digitalWrite(17, LOW);
+    digitalWrite(18, LOW);
+    pinMode(21, INPUT);
+}
+
 bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
     // messwert kleiner gleich soll
     if (type == "max") {
@@ -46,6 +57,7 @@ bool compareTestValue(uint16_t mess, uint16_t soll, String type) {
         return false;
     }
 }
+
 // all off
 void testIR1() {
     Serial.println("--- IR Transistor 1 ---");
@@ -77,7 +89,7 @@ void testIR1() {
         compareTestValue(botDL, 1000, "max")? "true" : "false");
 }
 
-// front active
+// DL Front active
 void testIR2() {
     Serial.println("--- IR Transistor 2 ---");
     digitalWrite(16, HIGH);
@@ -142,8 +154,8 @@ void testIR3() {
         compareTestValue(botDL, 1000, "max")? "true" : "false");
     digitalWrite(17, LOW);
     delay(100);
-
 }
+
 // left and back active
 void testIR4() {
     Serial.println("--- IR Transistor 4 ---");
@@ -205,19 +217,6 @@ void testIRLed() {
     delay(10);
     Serial.print("Error Intended: ");
     dezibot.infraredLight.bottom.setState(false);
-}
-
-void init() {
-    dezibot.begin();
-    //a. GPIO16, GPIO17, GPIO18 als Ausgang, Low geschaltet.
-    pinMode(16, OUTPUT);
-    pinMode(17, OUTPUT);
-    pinMode(18, OUTPUT);
-    digitalWrite(16, LOW);
-    digitalWrite(17, LOW);
-    digitalWrite(18, LOW);
-    // b. GPIO21 als Eingang, ohne interne Pull-Up-/Down-Widerstände.
-    pinMode(21, INPUT);
 }
 
 void setup() {
